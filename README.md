@@ -11,7 +11,7 @@ bun add @kemero/credit@github:kemero-io/credit
 ```tsx
 import { KemeroCredit } from "@kemero/credit";
 
-<KemeroCredit caseUrl="https://kemero.io" />
+<KemeroCredit caseUrl="https://kemero.se" />
 ```
 
 Ingen CSS att importera och inga variabler att sätta. Märket färgas med
