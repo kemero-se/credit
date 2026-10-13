@@ -10,8 +10,9 @@ import { KemeroCredit } from "./index";
 describe("KemeroCredit", () => {
   const html = renderToStaticMarkup(<KemeroCredit />);
 
-  test("säger exakt Sajt av kemero, med kemero gement", () => {
-    expect(html).toContain(">Sajt av kemero</a>");
+  test("säger Hemsida av och bär kemeros ordmärke", () => {
+    expect(html).toContain("<span>Hemsida av</span>");
+    expect(html).toContain('class="kemero-credit__ord"');
   });
 
   test("länkar till kemero.se i samma flik", () => {
@@ -25,6 +26,6 @@ describe("KemeroCredit", () => {
   });
 
   test("namnger byrån för skärmläsare", () => {
-    expect(html).toContain('aria-label="Sajt av kemero, webbyrå"');
+    expect(html).toContain('aria-label="Hemsida av kemero, webbyrå"');
   });
 });

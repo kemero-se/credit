@@ -1,15 +1,20 @@
 import "./credit.css";
 
 /*
-  kemeros signatur, "Sajt av kemero" med punkten som sätts.
+  kemeros signatur: "Hemsida av" och kemeros ordmärke. Vid hover och fokus
+  sätts kemeros blå kvadrat efter ordmärket, samma punkt som avslutar
+  rubrikerna på kemero.se. Beslutet står i README.
 
-  Allt är låst i paketet: texten, länken och punkten. Rent presentationell
-  utan hooks, så den kan renderas statiskt utan klient-JavaScript. Hovret
-  sköts av CSS.
-
-  Länken går alltid till kemero.se, i samma flik och utan nofollow. Den är
-  byråns signatur, inte en länk till ett enskilt case.
+  Allt är låst i paketet: texten, ordmärket, länken och punkten. Rent
+  presentationell utan hooks, så den kan renderas statiskt utan
+  klient-JavaScript. Hovret och punktens rörelse är ren CSS.
 */
+
+/** Ordmärket "kemero" ur kemero.se (src/components/layout/logo.tsx). */
+const ORDMARKE_VIEWBOX = "7 -70 317.53 71.4";
+const ORDMARKE_PATH =
+  "M42.40 0L55 0L55-70L42.40-70L42.40-31.30L40.60-31.30L24.20-49.60L7.80-49.60L30.70-25.60L7 0L23.20 0L40.60-19.70L42.40-19.70L42.40 0ZM84.59 1.40L84.59 1.40Q77.19 1.40 71.54-1.75Q65.89-4.90 62.74-10.65Q59.59-16.40 59.59-24.20L59.59-24.20L59.59-25.40Q59.59-33.20 62.69-38.95Q65.79-44.70 71.39-47.85Q76.99-51 84.39-51L84.39-51Q91.69-51 97.09-47.75Q102.49-44.50 105.49-38.75Q108.49-33 108.49-25.40L108.49-25.40L108.49-21.10L72.39-21.10Q72.59-16 76.19-12.80Q79.79-9.60 84.99-9.60L84.99-9.60Q90.29-9.60 92.79-11.90Q95.29-14.20 96.59-17L96.59-17L106.89-11.60Q105.49-9 102.84-5.95Q100.19-2.90 95.79-0.75Q91.39 1.40 84.59 1.40ZM72.49-30.50L72.49-30.50L95.69-30.50Q95.29-34.80 92.24-37.40Q89.19-40 84.29-40L84.29-40Q79.19-40 76.19-37.40Q73.19-34.80 72.49-30.50ZM125.23 0L112.63 0L112.63-49.60L125.03-49.60L125.03-44.20L126.83-44.20Q128.13-46.70 131.13-48.55Q134.13-50.40 139.03-50.40L139.03-50.40Q144.33-50.40 147.53-48.35Q150.73-46.30 152.43-43L152.43-43L154.23-43Q155.93-46.20 159.03-48.30Q162.13-50.40 167.83-50.40L167.83-50.40Q172.43-50.40 176.18-48.45Q179.93-46.50 182.18-42.55Q184.43-38.60 184.43-32.60L184.43-32.60L184.43 0L171.83 0L171.83-31.70Q171.83-35.80 169.73-37.85Q167.63-39.90 163.83-39.90L163.83-39.90Q159.53-39.90 157.18-37.15Q154.83-34.40 154.83-29.30L154.83-29.30L154.83 0L142.23 0L142.23-31.70Q142.23-35.80 140.13-37.85Q138.03-39.90 134.23-39.90L134.23-39.90Q129.93-39.90 127.58-37.15Q125.23-34.40 125.23-29.30L125.23-29.30L125.23 0ZM213.69 1.40L213.69 1.40Q206.29 1.40 200.64-1.75Q194.99-4.90 191.84-10.65Q188.69-16.40 188.69-24.20L188.69-24.20L188.69-25.40Q188.69-33.20 191.79-38.95Q194.89-44.70 200.49-47.85Q206.09-51 213.49-51L213.49-51Q220.79-51 226.19-47.75Q231.59-44.50 234.59-38.75Q237.59-33 237.59-25.40L237.59-25.40L237.59-21.10L201.49-21.10Q201.69-16 205.29-12.80Q208.89-9.60 214.09-9.60L214.09-9.60Q219.39-9.60 221.89-11.90Q224.39-14.20 225.69-17L225.69-17L235.99-11.60Q234.59-9 231.94-5.95Q229.29-2.90 224.89-0.75Q220.49 1.40 213.69 1.40ZM201.59-30.50L201.59-30.50L224.79-30.50Q224.39-34.80 221.34-37.40Q218.29-40 213.39-40L213.39-40Q208.29-40 205.29-37.40Q202.29-34.80 201.59-30.50ZM254.33 0L241.73 0L241.73-49.60L254.13-49.60L254.13-44L255.93-44Q257.03-47 259.58-48.40Q262.13-49.80 265.53-49.80L265.53-49.80L271.53-49.80L271.53-38.60L265.33-38.60Q260.53-38.60 257.43-36.05Q254.33-33.50 254.33-28.20L254.33-28.20L254.33 0ZM298.53 1.40L298.53 1.40Q291.13 1.40 285.23-1.60Q279.33-4.60 275.93-10.30Q272.53-16 272.53-24L272.53-24L272.53-25.60Q272.53-33.60 275.93-39.30Q279.33-45 285.23-48Q291.13-51 298.53-51L298.53-51Q305.93-51 311.83-48Q317.73-45 321.13-39.30Q324.53-33.60 324.53-25.60L324.53-25.60L324.53-24Q324.53-16 321.13-10.30Q317.73-4.60 311.83-1.60Q305.93 1.40 298.53 1.40ZM298.53-9.80L298.53-9.80Q304.33-9.80 308.13-13.55Q311.93-17.30 311.93-24.30L311.93-24.30L311.93-25.30Q311.93-32.30 308.18-36.05Q304.43-39.80 298.53-39.80L298.53-39.80Q292.73-39.80 288.93-36.05Q285.13-32.30 285.13-25.30L285.13-25.30L285.13-24.30Q285.13-17.30 288.93-13.55Q292.73-9.80 298.53-9.80Z";
+
 export type KemeroCreditProps = {
   /** Endast för placering i footern. Använd inte för att tona om signaturen. */
   className?: string;
@@ -18,13 +23,20 @@ export type KemeroCreditProps = {
 export function KemeroCredit({ className }: KemeroCreditProps) {
   return (
     <a
-      aria-label="Sajt av kemero, webbyrå"
+      aria-label="Hemsida av kemero, webbyrå"
       className={className ? `kemero-credit ${className}` : "kemero-credit"}
       href="https://kemero.se"
       rel="noopener"
     >
+      <span>Hemsida av</span>
+      <svg
+        aria-hidden="true"
+        className="kemero-credit__ord"
+        viewBox={ORDMARKE_VIEWBOX}
+      >
+        <path d={ORDMARKE_PATH} />
+      </svg>
       <span aria-hidden="true" className="kemero-credit__punkt" />
-      Sajt av kemero
     </a>
   );
 }

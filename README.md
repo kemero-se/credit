@@ -1,7 +1,7 @@
 # @kemero/credit
 
-kemeros signatur längst ner på hemsidorna vi bygger: en liten punkt och
-texten "Sajt av kemero".
+kemeros signatur längst ner på hemsidorna vi bygger: "Hemsida av" och
+kemeros ordmärke, med den blå punkten som sätts.
 
 ## Användning
 
@@ -30,21 +30,26 @@ placering.
 
 En diskret, interaktiv signatur längst ner på kundernas hemsidor.
 
-- Texten är exakt `Sajt av kemero`, med kemero gement.
+- Texten är "Hemsida av" följd av kemeros ordmärke i textens färg.
+  kenny valde orden efter två provomgångar. "Sajt av" med en rund ring
+  lästes som billigt och var inte kemero.
 - Länken går till `https://kemero.se` i samma flik, med `rel="noopener"`
-  och utan `nofollow`. Tillgängligt namn: "Sajt av kemero, webbyrå".
-- Före texten står en punkt på 6 px. I vila är den en tunn ring i textens
-  färg. Vid hover och fokus fylls den med `#2b3cff` och landar med en liten
-  fjäder, `cubic-bezier(0.34, 1.32, 0.64, 1)` på 220 ms. Det är kemeros
-  signatur, punkten som sätts. Bara transform och opacitet animeras, och med
-  `prefers-reduced-motion` byts färgen utan rörelse.
+  och utan `nofollow`. Tillgängligt namn: "Hemsida av kemero, webbyrå".
+- Punkten är kemeros blå kvadrat, `#2b3cff`, efter ordmärket. I vila syns
+  den inte. Vid hover och fokus faller den en kort bit på plats på 420 ms
+  med kemeros kurva `cubic-bezier(0.23, 1, 0.32, 1)`, samma rörelse som
+  punkten i rubrikerna på kemero.se. Tillbaka går den på 160 ms.
+- På pekskärm sätts punkten en gång när foten skrollas in, med en
+  skrolldriven animation. Bara transform och opacitet. Med
+  `prefers-reduced-motion` byter punkten läge utan rörelse.
+- kemeros DESIGN.md säger att punkten bara finns i monogrammet. Signaturen
+  är ett undantag från den regeln.
 - Klickytan är minst 24 px hög.
-- Kunden kan välja bort signaturen. Det görs med `visa={false}` på
-  `Sajtfot`, som då inte renderar något alls.
+- Kunden kan välja bort signaturen med `visa={false}` på `Sajtfot`, som då
+  inte renderar något alls.
 
-Signaturen ersätter ordmärket som stod här fram till version 1.0.0. Ett
-ordmärke i 13 px läste otydligt och tog över raden, och länken pekade på
-kundens case i stället för på byrån.
+Signaturen ersätter den tidigare krediten med "Sajt av" och ordmärket som
+egen länk, som pekade på kundens case i stället för på byrån.
 
 ## Utveckla
 

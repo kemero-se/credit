@@ -4,15 +4,17 @@
   Tailwind v4 skannar inte node_modules, så utility-klasser från ett paket skulle
   aldrig genereras hos konsumenten. Därför äger paketet sin egen CSS.
 
-  Texten sätter ingen egen färg eller grad. Den ärver footerns, så signaturen
-  följer designens tema och kontrasten är footertextens kontrast.
+  Texten och ordmärket sätter ingen egen färg eller grad. De ärver footerns,
+  så signaturen följer designens tema och kontrasten är footertextens kontrast.
+  Bara punkten har en egen färg: kemeros blå.
 */
 
 .kemero-credit {
   display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  min-height: 24px;
+  align-items: baseline;
+  gap: 0.32em;
+  /* Klickytan blir minst 24 px hög i en fot på 14 till 16 px. */
+  padding-block: 0.3em;
   color: inherit;
   font: inherit;
   text-decoration: none;
@@ -26,61 +28,90 @@
 }
 
 /*
-  PUNKTEN SOM SÄTTS.
+  ORDMÄRKET står på textens baslinje. Det har bara ett högt tecken, k:et,
+  och resten är gemener, så 0,78 em ger samma x-höjd som texten bredvid.
+  En inline-svg får sin baslinje i underkanten, och ritningen har 1,4 av
+  71,4 enheter under sin baslinje, därav den lilla förskjutningen.
+*/
+.kemero-credit__ord {
+  display: block;
+  flex-shrink: 0;
+  height: 0.78em;
+  width: auto;
+  fill: currentColor;
+  transform: translateY(0.018em);
+}
 
-  I vila en tunn ring i textens färg. Vid hover och fokus landar en blå,
-  fylld punkt ovanpå med en liten fjäder. Bara transform och opacitet
-  animeras: ringen ligger still och den fyllda punkten (::after) skalas upp
-  från 0,4 och tonas in. Tillbaka går den snabbare och utan fjäder, så att
-  pekaren som drar förbi inte lämnar en studsande punkt efter sig.
+/*
+  PUNKTEN SOM SÄTTS. kemeros blå kvadrat efter ordmärket. I vila syns den
+  inte. Vid hover och fokus faller den en kort bit på plats på 420 ms med
+  kemeros kurva. Tillbaka går den på 160 ms. Bara transform och opacitet.
 */
 .kemero-credit__punkt {
-  position: relative;
   flex-shrink: 0;
-  width: 6px;
-  height: 6px;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-}
-
-.kemero-credit__punkt::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 50%;
+  width: 0.24em;
+  height: 0.24em;
+  margin-left: -0.2em;
   background: #2b3cff;
   opacity: 0;
-  transform: scale(0.4);
+  transform: translateY(-0.55em);
   transition:
-    transform 150ms cubic-bezier(0.23, 1, 0.32, 1),
-    opacity 150ms cubic-bezier(0.23, 1, 0.32, 1);
+    opacity 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.kemero-credit:focus-visible .kemero-credit__punkt::after {
+.kemero-credit:focus-visible .kemero-credit__punkt {
   opacity: 1;
-  transform: scale(1);
-  transition:
-    transform 220ms cubic-bezier(0.34, 1.32, 0.64, 1),
-    opacity 220ms cubic-bezier(0.34, 1.32, 0.64, 1);
+  transform: none;
+  transition-duration: 420ms;
 }
 
-/* Hovret bara där det finns en riktig pekare, annars fastnar punkten efter ett tryck. */
 @media (hover: hover) and (pointer: fine) {
-  .kemero-credit:hover .kemero-credit__punkt::after {
+  .kemero-credit:hover .kemero-credit__punkt {
     opacity: 1;
-    transform: scale(1);
-    transition:
-      transform 220ms cubic-bezier(0.34, 1.32, 0.64, 1),
-      opacity 220ms cubic-bezier(0.34, 1.32, 0.64, 1);
+    transform: none;
+    transition-duration: 420ms;
   }
 }
 
-/* Färgen byts, punkten rör sig inte. */
+/*
+  PÅ PEKSKÄRM finns ingen hover. Där sätts punkten en gång när foten
+  skrollas in i bild, med en skrolldriven animation. En webbläsare utan
+  stöd för animation-timeline kör samma animation vid laddning, och punkten
+  står kvar.
+*/
+@media (hover: none) {
+  .kemero-credit__punkt {
+    animation: kemero-credit-satt 420ms cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation-timeline: view();
+    animation-range: entry 70% entry 100%;
+  }
+}
+
+@keyframes kemero-credit-satt {
+  from {
+    opacity: 0;
+    transform: translateY(-0.55em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Punkten byter läge utan rörelse. */
 @media (prefers-reduced-motion: reduce) {
-  .kemero-credit__punkt::after,
-  .kemero-credit:hover .kemero-credit__punkt::after,
-  .kemero-credit:focus-visible .kemero-credit__punkt::after {
+  .kemero-credit__punkt,
+  .kemero-credit:hover .kemero-credit__punkt,
+  .kemero-credit:focus-visible .kemero-credit__punkt {
     transform: none;
     transition: none;
+  }
+
+  @media (hover: none) {
+    .kemero-credit__punkt {
+      animation: none;
+      opacity: 1;
+    }
   }
 }
