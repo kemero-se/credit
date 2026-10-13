@@ -2,21 +2,20 @@ import "./index.css";
 import { jsxs, jsx } from 'react/jsx-runtime';
 
 // src/index.tsx
-function KemeroCredit({ caseUrl, className }) {
-  return /* @__PURE__ */ jsxs("p", { className: className ? `kemero-credit ${className}` : "kemero-credit", children: [
-    /* @__PURE__ */ jsx("span", { children: "Sajt av" }),
-    /* @__PURE__ */ jsx(
-      "a",
-      {
-        "aria-label": "kemero",
-        className: "kemero-credit__link",
-        href: caseUrl,
-        rel: "noopener noreferrer",
-        target: "_blank",
-        children: /* @__PURE__ */ jsx("span", { className: "kemero-credit__mark" })
-      }
-    )
-  ] });
+function KemeroCredit({ className }) {
+  return /* @__PURE__ */ jsxs(
+    "a",
+    {
+      "aria-label": "Sajt av kemero, webbyr\xE5",
+      className: className ? `kemero-credit ${className}` : "kemero-credit",
+      href: "https://kemero.se",
+      rel: "noopener",
+      children: [
+        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "kemero-credit__punkt" }),
+        "Sajt av kemero"
+      ]
+    }
+  );
 }
 
 export { KemeroCredit };

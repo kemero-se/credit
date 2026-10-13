@@ -1,43 +1,30 @@
 import "./credit.css";
 
 /*
-  kemeros signatur. Komponenten tar bara emot caseUrl; övriga egenskaper
-  är låsta i paketet. Rent presentationell utan hooks, så den kan
-  renderas statiskt utan klient-JavaScript.
+  kemeros signatur, "Sajt av kemero" med punkten som sätts.
+
+  Allt är låst i paketet: texten, länken och punkten. Rent presentationell
+  utan hooks, så den kan renderas statiskt utan klient-JavaScript. Hovret
+  sköts av CSS.
+
+  Länken går alltid till kemero.se, i samma flik och utan nofollow. Den är
+  byråns signatur, inte en länk till ett enskilt case.
 */
 export type KemeroCreditProps = {
-  /** Adressen märket länkar till. */
-  caseUrl: string;
-  /** Endast för placering i footern. Använd inte för att tona om märket. */
+  /** Endast för placering i footern. Använd inte för att tona om signaturen. */
   className?: string;
 };
 
-export function KemeroCredit({ caseUrl, className }: KemeroCreditProps) {
+export function KemeroCredit({ className }: KemeroCreditProps) {
   return (
-    <p className={className ? `kemero-credit ${className}` : "kemero-credit"}>
-      <span>Sajt av</span>
-      {/*
-        Etiketten namnger byrån, inte destinationen.
-
-        Den sa "kemero, se caset för den här sajten", vilket var ett löfte
-        komponenten inte kan hålla: caseUrl är den enda propen och sätts av
-        sajten som konsumerar paketet, alltså kan den peka på ett case, på
-        kemero.io eller på vad som helst. En skärmläsare lovade ett case och
-        länken gav en startsida.
-
-        "Sajt av" står redan i klartext bredvid, så etiketten behöver bara
-        bära det märket säger och som en skärmläsare annars missar, alltså
-        namnet.
-      */}
-      <a
-        aria-label="kemero"
-        className="kemero-credit__link"
-        href={caseUrl}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        <span className="kemero-credit__mark" />
-      </a>
-    </p>
+    <a
+      aria-label="Sajt av kemero, webbyrå"
+      className={className ? `kemero-credit ${className}` : "kemero-credit"}
+      href="https://kemero.se"
+      rel="noopener"
+    >
+      <span aria-hidden="true" className="kemero-credit__punkt" />
+      Sajt av kemero
+    </a>
   );
 }
