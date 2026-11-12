@@ -1,13 +1,12 @@
 import "./credit.css";
 
 /*
-  kemeros signatur: "Hemsida av" och kemeros ordmärke. Vid hover och fokus
-  sätts kemeros blå kvadrat efter ordmärket, samma punkt som avslutar
-  rubrikerna på kemero.se. Beslutet står i README.
+  kemeros signatur: "Hemsida av" och kemeros ordmärke med den blå punkten i
+  k:ets öppning, som på kemero.se. Beslutet står i README.
 
   Allt är låst i paketet: texten, ordmärket, länken och punkten. Rent
   presentationell utan hooks, så den kan renderas statiskt utan
-  klient-JavaScript. Hovret och punktens rörelse är ren CSS.
+  klient-JavaScript.
 */
 
 export type KemeroCreditProps = {
@@ -29,8 +28,10 @@ export function KemeroCredit({ className }: KemeroCreditProps) {
         Som inline-svg lade banan 3,5 kB okomprimerbar text i varje sidas
         HTML, och sidan gick över det första TCP-fönstret.
       */}
-      <span aria-hidden="true" className="kemero-credit__ord" />
-      <span aria-hidden="true" className="kemero-credit__punkt" />
+      <span aria-hidden="true" className="kemero-credit__marke">
+        <span className="kemero-credit__ord" />
+        <span className="kemero-credit__punkt" />
+      </span>
     </a>
   );
 }

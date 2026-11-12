@@ -12,8 +12,10 @@ function KemeroCredit({ className }) {
       rel: "noopener",
       children: [
         /* @__PURE__ */ jsx("span", { children: "Hemsida av" }),
-        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "kemero-credit__ord" }),
-        /* @__PURE__ */ jsx("span", { "aria-hidden": "true", className: "kemero-credit__punkt" })
+        /* @__PURE__ */ jsxs("span", { "aria-hidden": "true", className: "kemero-credit__marke", children: [
+          /* @__PURE__ */ jsx("span", { className: "kemero-credit__ord" }),
+          /* @__PURE__ */ jsx("span", { className: "kemero-credit__punkt" })
+        ] })
       ]
     }
   );

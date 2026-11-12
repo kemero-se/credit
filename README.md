@@ -35,15 +35,10 @@ En diskret, interaktiv signatur längst ner på kundernas hemsidor.
   lästes som billigt och var inte kemero.
 - Länken går till `https://kemero.se` i samma flik, med `rel="noopener"`
   och utan `nofollow`. Tillgängligt namn: "Hemsida av kemero, webbyrå".
-- Punkten är kemeros blå kvadrat, `#2b3cff`, efter ordmärket. I vila syns
-  den inte. Vid hover och fokus faller den en kort bit på plats på 420 ms
-  med kemeros kurva `cubic-bezier(0.23, 1, 0.32, 1)`, samma rörelse som
-  punkten i rubrikerna på kemero.se. Tillbaka går den på 160 ms.
-- På pekskärm sätts punkten en gång när foten skrollas in, med en
-  skrolldriven animation. Bara transform och opacitet. Med
-  `prefers-reduced-motion` byter punkten läge utan rörelse.
-- kemeros DESIGN.md säger att punkten bara finns i monogrammet. Signaturen
-  är ett undantag från den regeln.
+- Punkten är kemeros blå kvadrat, `#2b3cff`, i k:ets öppning, som i
+  ordmärket på kemero.se. Den står alltid där och rör sig inte. Ändrat 12
+  november 2026 (kennys besked): punkten satt förut efter ordmärket och
+  föll på plats vid hover, och det var inte kemeros logga.
 - Klickytan är minst 24 px hög.
 - Kunden kan välja bort signaturen med `visa={false}` på `Sajtfot`, som då
   inte renderar något alls.
